@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\AuthRepository;
+use Illuminate\Http\Request;
 use Throwable;
 
 class AuthController extends BaseController
@@ -66,7 +67,26 @@ class AuthController extends BaseController
         }   
     }
 
-    public function logout() {
+    public function logout(Request $request) {
+        try {
+            $result = $this->repo->logout($request);
+            
+            if ($result instanceof Throwable) {
+                throw new \Exception($result->getMessage());
+            }
 
+            return $this->sendResponse(
+                $result, 
+                'Logout successful'
+            );
+        } catch (Throwable $e) {
+            $this->logData['method'] = 'logout';
+
+            return $this->sendError(
+                $e, 
+                __('Logout failed'),
+                $this->logData
+            );
+        }   
     }
 }

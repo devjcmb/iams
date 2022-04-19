@@ -115,9 +115,19 @@ class AuthRepository extends BaseRepository
      *
      * @return void
      */
-    public function logout() 
+    public function logout($request) 
     {
+        try {
+            $token = $request->user()->token();
+            $token->revoke();
 
+            return [
+                'token' => $token,
+            ];    
+    
+        } catch (\Throwable $e) {
+            return $e;
+        }
     }
 
 }
