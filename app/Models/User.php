@@ -30,7 +30,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -41,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * IP Addresses that belongs to the User
+     */
+    public function ipAddresses()
+    {
+        return $this->belongsToMany(IpAddress::class, 'user_ip_addresses', 'user_id', 'ip_address_id');
+    }
 }
