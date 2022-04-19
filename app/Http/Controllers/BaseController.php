@@ -2,11 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class BaseController extends Controller
 {
     protected $logData;
+
+    public function index(Request $request)
+    {
+        try {
+            $result = $this->repo->index($request->user());
+
+            if ($result instanceof Throwable) {
+                throw new \Exception($result->getMessage());
+            }
+
+            return $this->sendResponse(
+                $result, 
+                'Data fetched successfully'
+            );
+        } catch (Throwable $e) {
+            $this->logData['method'] = 'index';
+
+            return $this->sendError(
+                $e, 
+                __('Failed to load data'),
+                $this->logData
+            );
+        }   
+    }
 
     /**
      * Success response method.

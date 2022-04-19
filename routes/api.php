@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IpAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,15 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    
+
     Route::group(['prefix' => 'auth'], function() {
         Route::post('logout', [AuthController::class, 'logout']);
     });
-    
+
+    Route::group(['prefix' => 'ipaddress'], function() {
+        Route::get('/', [IpAddressController::class, 'index']);
+        // Route::post('/', [IpAddressController::class, 'create']);
+    });
 
     Route::get('test', function() {
         return 'test';
