@@ -13,7 +13,7 @@ class BaseController extends Controller
     public function index(Request $request)
     {
         try {
-            $result = $this->repo->index($request->user());
+            $result = $this->repo->index($request);
 
             if ($result instanceof Throwable) {
                 throw new \Exception($result->getMessage());

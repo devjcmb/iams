@@ -21,4 +21,5 @@ class IpAddressRepository extends BaseRepository
             ? $this->model->all() 
             : $request->user()->ipAddresses()->get();
     }
+
 }

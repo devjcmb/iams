@@ -30,14 +30,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {   
+        // get ip addresses
+        $ipAddresses = $this->getIpAddresses();
 
+        // generate a user factory
         $user = $this->repo->getModel();
 
-        $ipAddresses = $this->getIpAddresses();
         return $user->factory()
             ->count(1)
             ->hasAttached($ipAddresses, ['label' => 'test'])
             ->create();
+    }
+
+    public function createTestUser()
+    {
+        $this->repo->create([
+            'email' => 'test@email.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
     }
 
     public function getIpAddresses()
