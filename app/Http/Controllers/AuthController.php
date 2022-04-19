@@ -22,6 +22,7 @@ class AuthController extends BaseController
     public function register(RegisterRequest $request) {
         try {
             $result = $this->repo->register($request->all());
+            return $result;
 
             if ($result instanceof Throwable) {
                 throw new \Exception($result->getMessage());

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\AuditHistory;
 
-class RaceRepository extends BaseRepository
+class AuditHistoryRepository extends BaseRepository
 {
     /**
      * Initialize the class

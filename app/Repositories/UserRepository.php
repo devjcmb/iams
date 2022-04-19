@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository
         $user = $this->find($id);
 
         // create token
-        $accessToken = $user->createToken(config('app.key'))->accessToken;
+        $accessToken = $user->createToken('access-token')->accessToken;
 
         return $accessToken;
     }

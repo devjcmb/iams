@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthRepository extends BaseRepository
 {
@@ -60,7 +59,7 @@ class AuthRepository extends BaseRepository
             $user = null;
 
             // hash the password
-            $data['password'] = Hash::make($data['password']);
+            $data['password'] = bcrypt($data['password']);
 
             // create a user
             $user = $this->userRepo->create($data);
