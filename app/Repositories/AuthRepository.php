@@ -86,9 +86,28 @@ class AuthRepository extends BaseRepository
      *
      * @return void
      */
-    public function login() 
+    public function login($data) 
     {
+        try {
 
+            $user = null;
+
+            if (!auth()->attempt($data)) {
+                throw new \Exception('Invalid Credentials');
+            }
+
+            $user = $this->userRepo->findBy('email', $data['email'])->first();
+
+            $accessToken = $user->createToken('access-token')->accessToken;
+
+            return [
+                'token' => $accessToken,
+                'user' => $user
+            ];    
+
+        } catch (\Throwable $e) {
+            return $e;
+        }
     }
 
     /**

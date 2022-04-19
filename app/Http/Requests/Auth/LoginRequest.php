@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Traits\ShowJsonError;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ShowJsonError;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     use ShowJsonError;
-
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,11 +26,9 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-    return [
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required'
+        return [
+            'email' => 'required',
+            'password' => 'required'
         ];
     }
-
 }

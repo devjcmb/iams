@@ -14,6 +14,11 @@ class UserRepository extends BaseRepository
         $this->model = new User;
     }
 
+    public function findBy($field, $value)
+    {
+        return $this->model->where($field, $value);
+    }
+
     public function createToken($id) {
         $user = $this->find($id);
 
