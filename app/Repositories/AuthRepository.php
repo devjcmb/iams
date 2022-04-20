@@ -6,9 +6,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\CanAudit;
 
 class AuthRepository extends BaseRepository
 {
+    use CanAudit;
 
     /**
      * The user repository
@@ -65,7 +67,7 @@ class AuthRepository extends BaseRepository
             $user = $this->userRepo->create($data);
 
             // create token
-            $token = $this->userRepo->createToken($user->id);
+            $token = $this->userRepo->createToken($user->id);          
 
             DB::commit();
 
@@ -99,6 +101,13 @@ class AuthRepository extends BaseRepository
             $user = $this->userRepo->findBy('email', $data['email'])->first();
 
             $accessToken = $user->createToken('access-token')->accessToken;
+
+            $this->audit([
+                'user_id' => $user->id,
+                'title' => 'Login',
+                'description' => "User logged in",
+                'data' => $data
+            ]);
 
             return [
                 'token' => $accessToken,
