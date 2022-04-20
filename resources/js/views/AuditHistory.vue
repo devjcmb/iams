@@ -4,7 +4,7 @@
       </div>
 
       <div>
-          <table-component :headers="headers" :data="data"></table-component>
+          <table-component :headers="headers" :data="data" :actions="actions"></table-component>
       </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
                 description: "Description", 
                 dataa: "Data"
             },
+            actions: [],
             data: [],
             errors: []
         }    
@@ -35,9 +36,9 @@ export default {
             let filtered = {};
             this.data = res.map(function(a) {
                 filtered = {
-                    title: a.title,
-                    description: a.description,
-                    data: a.data
+                    title: {value: a.title, hidden: false},
+                    description: {value: a.description, hidden: false},
+                    data: {value: a.data, hidden: false},
                 }
                 return filtered;
             });

@@ -3,16 +3,19 @@
         <h1 class="h2">IP Addresses</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm  btn-success">Add</button>
+            <button type="button" class="btn btn-sm btn-success" @click="this.$router.push({path: '/ip-addresses/create'});">Add</button>
           </div>
         </div>
       </div>
+
+     <router-view />
 
       <div>
           <table-component 
             :headers="headers" 
             :data="data"
-            :actions="{edit:'edit'}">
+            :actions="actions"
+            @editClicked="editClicked">
         </table-component>
       </div>
 </template>
@@ -28,6 +31,7 @@ export default {
                 name: "Name", 
                 label: "Label"
             },
+            actions: ['Edit'],
             data: [],
             errors: []
         }    
@@ -44,15 +48,26 @@ export default {
             let filtered = {};
             this.data = res.map(function(a) {
                 filtered = {
-                    name: a.name,
-                    label: a.pivot.label
+                    id: { value: a.id, hidden:true},
+                    name: { value: a.name, hidden:false},
+                    label: { value: a.pivot.label, hidden:false},
                 }
                 return filtered;
             });
+
+            console.log(this.data)
+
 
         }).catch(err => {
             // this.errors.push(err.response.data.errors)
         });
     },
+    methods: {
+        editClicked(event) {
+            this.$router.push({ name: 'IpAddressesEdit', params: { id: event.id.value } })
+        }
+
+        
+    }
 }
 </script>

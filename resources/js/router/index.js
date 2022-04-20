@@ -2,6 +2,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import Auth from "../views/Auth.vue"
 import Dashboard from "../views/Dashboard.vue";
 import IpAddresses from "../views/IpAddresses.vue";
+import IpAddressesCreate from "../views/IpAddresses/IpAddressesCreate.vue";
+import IpAddressesEdit from "../views/IpAddresses/IpAddressesEdit.vue";
 import AuditHistory from "../views/AuditHistory.vue";
 import Login from "../views/Login.vue";
 import AuthService from "../services/AuthService.ts";
@@ -20,12 +22,22 @@ const routes = [
             path: "audit-history",
             name: "AuditHistory",
             component: AuditHistory,
-          },
-          {
+        },
+        {
             path: "ip-addresses",
             name: "IpAddresses",
             component: IpAddresses,
-        }, 
+        },
+        {
+            path: "ip-addresses/create",
+            name: "IpAddressesCreate",
+            component: IpAddressesCreate,
+        },
+        {
+            path: "ip-addresses/:id",
+            name: "IpAddressesEdit",
+            component: IpAddressesEdit,
+        },  
     ],
   },
   {
@@ -33,10 +45,6 @@ const routes = [
     name: "Auth",
     component: Auth,
     children: [
-        // {
-        //   path: 'register',
-        //   component: Register,
-        // },
         {
           path: 'login',
           name: "Login",

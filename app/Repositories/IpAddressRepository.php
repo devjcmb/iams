@@ -67,9 +67,10 @@ class IpAddressRepository extends BaseRepository
                 'description' => "IP Address attached",
                 'data' => $request->all()
             ]);
-        } else {
-            $ipAddress = $this->updateIpAddress($exists->id, $request);
         }
+        //  else {
+        //     $ipAddress = $this->updateIpAddress($exists->id, $request);
+        // }
 
         return $ipAddress;
     }
