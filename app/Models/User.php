@@ -46,24 +46,7 @@ class User extends Authenticatable
      */
     public function ipAddresses()
     {
-        return $this->belongsToMany(IpAddress::class, 'user_ip_addresses', 'user_id', 'ip_address_id');
+        return $this->belongsToMany(IpAddress::class, 'user_ip_addresses', 'user_id', 'ip_address_id')
+            ->withPivot('label');
     }
-
-    // /**
-    //  * Check if User has and IP Address
-    //  *
-    //  * @param integer $ipAddressId
-    //  * @return boolean
-    //  */
-    // public function hasIpAddress($ipAddressId)
-    // {
-    //     return $this->ipAddress()->where('id', $ipAddressId);
-    // }
-
-    // public function assignIpAddress($ipAddress)
-    // {
-
-    // }
-
-    // public function 
 }

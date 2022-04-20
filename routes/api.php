@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('logout', [AuthController::class, 'logout']);
     });
 
-    Route::group(['prefix' => 'ip-address'], function() {
+    Route::group(['prefix' => 'ip-addresses'], function() {
         Route::get('/', [IpAddressController::class, 'index']);
         Route::post('/', [IpAddressController::class, 'create']);
         Route::post('{id}', [IpAddressController::class, 'update']);
