@@ -78,4 +78,33 @@ class IpAddressController extends BaseController
             );
         }  
     }
+
+    /**
+     * Find an IP Address
+     *
+     * @param integer $id
+     */
+    public function find($id) {
+        try {
+            $result = $this->repo->find($id);
+
+            if ($result instanceof Throwable) {
+                throw new \Exception($result->getMessage());
+            }
+
+            return $this->sendResponse(
+                $result, 
+                'Item found'
+            );
+        } catch (Throwable $e) {
+
+            $this->logData['method'] = 'find';
+
+            return $this->sendError(
+                $e, 
+                __('Failed to find data'),
+                $this->logData
+            );
+        }  
+    }
 }

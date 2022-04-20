@@ -9,6 +9,14 @@ export default new class {
         return result;
     }
 
+    find(id) {
+        let axios = HttpService.getInstance();
+        let api_url = process.env.app.api_url + 'ip-addresses/' + id; 
+        let result = axios.get(api_url);
+
+        return result;
+    }
+
     create(data) {
         let axios = HttpService.getInstance();
         let api_url = process.env.app.api_url + 'ip-addresses'; 

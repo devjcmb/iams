@@ -100,4 +100,11 @@ class IpAddressRepository extends BaseRepository
         return $this->find($id);
     }
 
+
+    // public function find($id) {
+    //     // $ipAddresses =  request()->user()->ipAddresses()->where('ip_address_id', $id)->get();
+    //     // dd($ipAddress);
+
+    //     return $this->model;
+    // }
 }

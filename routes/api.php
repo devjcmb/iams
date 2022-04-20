@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'ip-addresses'], function() {
         Route::get('/', [IpAddressController::class, 'index']);
+        Route::get('/{id}', [IpAddressController::class, 'find']);
         Route::post('/', [IpAddressController::class, 'create']);
         Route::post('{id}', [IpAddressController::class, 'update']);
     });

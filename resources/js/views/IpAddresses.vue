@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         editClicked(event) {
-            this.$router.push({ name: 'IpAddressesEdit', params: { id: event.id.value } })
+            this.$router.push({ name: 'IpAddressesEdit', params: { id: event.id.value }, query: {data: event.label.value} })
         }
 
         

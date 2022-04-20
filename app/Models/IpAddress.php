@@ -12,4 +12,10 @@ class IpAddress extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_ip_addresses', 'ip_address_id', 'user_id')
+            ->withPivot('label');
+    }
 }
