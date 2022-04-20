@@ -41,6 +41,11 @@ class BaseRepository
         return $this->model->find($id);
     }
 
+    public function findBy($field, $value)
+    {
+        return $this->model->where($field, $value);
+    }
+    
     public function insert($data)
     {
         return $this->model->insert($data);

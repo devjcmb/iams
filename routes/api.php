@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'ipaddress'], function() {
         Route::get('/', [IpAddressController::class, 'index']);
-        // Route::post('/', [IpAddressController::class, 'create']);
+        Route::post('/', [IpAddressController::class, 'create']);
     });
 
     Route::get('test', function() {
