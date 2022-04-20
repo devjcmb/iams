@@ -70,7 +70,7 @@ class AuthController extends BaseController
     public function logout(Request $request) {
         try {
             $result = $this->repo->logout($request);
-            
+
             if ($result instanceof Throwable) {
                 throw new \Exception($result->getMessage());
             }

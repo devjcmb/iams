@@ -106,7 +106,7 @@ class AuthRepository extends BaseRepository
                 'user_id' => $user->id,
                 'title' => 'Login',
                 'description' => "User logged in",
-                'data' => $data
+                'data' => [$data['email']]
             ]);
 
             return [
@@ -130,8 +130,15 @@ class AuthRepository extends BaseRepository
             $token = $request->user()->token();
             $token->revoke();
 
+            $this->audit([
+                'user_id' => $request->user()->id,
+                'title' => 'Logout',
+                'description' => "User logged out",
+                'data' => []
+            ]);
+
             return [
-                'token' => $token,
+                'status' => true,
             ];    
     
         } catch (\Throwable $e) {

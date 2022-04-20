@@ -55,9 +55,6 @@ export default {
                 return filtered;
             });
 
-            console.log(this.data)
-
-
         }).catch(err => {
             // this.errors.push(err.response.data.errors)
         });

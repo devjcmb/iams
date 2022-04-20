@@ -30,7 +30,7 @@ import AuthService from "../services/AuthService.ts";
 export default {
     data(){
         return {
-            email : "test@email.coma",
+            email : "test@email.com",
             password : "password",
             errors: []
         }
@@ -53,7 +53,7 @@ export default {
                 axios.then((response) => {
 
                     localStorage.setItem('token', response.data.data.token)
-                    
+
                     if (localStorage.getItem('token') != null){
                         window.location.href = "/"
                     }

@@ -56,7 +56,6 @@ export default {
             let axios = IpAddressService.create(data);
 
             axios.then((response) => {
-                console.log(response.data)
                 this.$router.go(-1)
             }).catch(err => {
                 this.errors.push(err.response.data.message)
