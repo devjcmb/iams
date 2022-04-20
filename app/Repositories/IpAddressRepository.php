@@ -52,7 +52,7 @@ class IpAddressRepository extends BaseRepository
                 'user_id' => $user->id,
                 'title' => 'Create',
                 'description' => "IP Address created",
-                'data' => json_encode($request->all())
+                'data' => $request->all()
             ]);
         }
 
@@ -65,7 +65,7 @@ class IpAddressRepository extends BaseRepository
                 'user_id' => $user->id,
                 'title' => 'Update',
                 'description' => "IP Address attached",
-                'data' => json_encode($ipAddress->toArray())
+                'data' => $request->all()
             ]);
         } else {
             $ipAddress = $this->updateIpAddress($exists->id, $request);
@@ -93,7 +93,7 @@ class IpAddressRepository extends BaseRepository
             'user_id' => $user->id,
             'title' => 'Update',
             'description' => "IP Address updated",
-            'data' => json_encode($request->all())
+            'data' => $request->all()
         ]);
 
         return $this->find($id);
