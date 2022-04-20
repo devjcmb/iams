@@ -51,8 +51,7 @@ class IpAddressRepository extends BaseRepository
         if (is_null($exists)) {
             $ipAddresses->attach($ipAddress->id, ['label' => $request['label']]);
         } else {
-            $request['id'] = $exists->id;
-            $ipAddress = $this->updateIpAddress($request);
+            $ipAddress = $this->updateIpAddress($exists->id, $request);
         }
 
         return $ipAddress;
@@ -62,16 +61,17 @@ class IpAddressRepository extends BaseRepository
      * Update the IP Address label
      *
      * @param App\Http\Requests\IpAddress\UpdateRequest $request
+     * @param integer $id
      */
-    public function updateIpAddress($request)
+    public function updateIpAddress($id, $request)
     {
         // get authenticated user
         $user = $request->user();
 
         // update only the label
-        $user->ipAddresses()->updateExistingPivot($request->id, ['label' => $request['label']]);
+        $user->ipAddresses()->updateExistingPivot($id, ['label' => $request['label']]);
 
-        return $this->find($request->id);
+        return $this->find($id);
     }
 
 }
