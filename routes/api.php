@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IpAddressController;
+use App\Http\Controllers\AuditHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('logout', [AuthController::class, 'logout']);
     });
 
-    Route::group(['prefix' => 'ipaddress'], function() {
+    Route::group(['prefix' => 'ip-address'], function() {
         Route::get('/', [IpAddressController::class, 'index']);
         Route::post('/', [IpAddressController::class, 'create']);
         Route::post('{id}', [IpAddressController::class, 'update']);
     });
 
-    Route::get('test', function() {
-        return 'test';
+    Route::group(['prefix' => 'audit-history'], function() {
+        Route::get('/', [AuditHistoryController::class, 'index']);
     });
+
 });
