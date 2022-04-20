@@ -3,16 +3,21 @@
 namespace App\Repositories;
 
 use App\Models\IpAddress;
+use App\Traits\CanAudit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class IpAddressRepository extends BaseRepository
 {
+    use CanAudit;
+
+    protected $auditRepo;
+
     /**
      * Initialize the class
      */
-    public function __construct()
+    public function __construct(AuditHistoryRepository $auditRepo)
     {
+        $this->auditRepo = $auditRepo;
         $this->model = new IpAddress;
     }
 
@@ -43,6 +48,12 @@ class IpAddressRepository extends BaseRepository
         // create an IP Address if it doesn't exist
         if (is_null($ipAddress)) {
             $ipAddress = $this->create($request->all());
+            $this->audit([
+                'user_id' => $user->id,
+                'title' => 'Create',
+                'description' => "IP Address created",
+                'data' => json_encode($request->all())
+            ]);
         }
 
         // check if this IP is already assigned to the user, if not, add a label
@@ -50,6 +61,12 @@ class IpAddressRepository extends BaseRepository
 
         if (is_null($exists)) {
             $ipAddresses->attach($ipAddress->id, ['label' => $request['label']]);
+            $this->audit([
+                'user_id' => $user->id,
+                'title' => 'Update',
+                'description' => "IP Address attached",
+                'data' => json_encode($ipAddress->toArray())
+            ]);
         } else {
             $ipAddress = $this->updateIpAddress($exists->id, $request);
         }
@@ -70,6 +87,14 @@ class IpAddressRepository extends BaseRepository
 
         // update only the label
         $user->ipAddresses()->updateExistingPivot($id, ['label' => $request['label']]);
+
+        // audit
+        $this->audit([
+            'user_id' => $user->id,
+            'title' => 'Update',
+            'description' => "IP Address updated",
+            'data' => json_encode($request->all())
+        ]);
 
         return $this->find($id);
     }

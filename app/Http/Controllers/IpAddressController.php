@@ -66,7 +66,7 @@ class IpAddressController extends BaseController
 
             return $this->sendResponse(
                 $result, 
-                'Created successfully'
+                'Updated successfully'
             );
         } catch (Throwable $e) {
             $this->logData['method'] = 'update';

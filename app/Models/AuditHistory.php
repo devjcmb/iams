@@ -9,10 +9,14 @@ class AuditHistory extends Model
 {
     use HasFactory;
 
+    protected $table = "audit_history";
+
     protected $fillable = [
         'user_id',
         'title',
-        'description'
+        'description',
+        'data'
     ];
+
 }
 

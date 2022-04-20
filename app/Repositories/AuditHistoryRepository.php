@@ -13,4 +13,5 @@ class AuditHistoryRepository extends BaseRepository
     {
         $this->model = new AuditHistory;
     }
+
 }
