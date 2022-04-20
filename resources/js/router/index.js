@@ -53,16 +53,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-    
-    if (
-      // make sure the user is authenticated
-      !AuthService.checkAuth() &&
-      // ❗️ Avoid an infinite redirect
-      to.name !== 'Login'
-    ) {
+    if (to.name == 'Login' && AuthService.checkAuth()) {
+        return { name: 'Dashboard' }
+    } else if ( !AuthService.checkAuth() && to.name !== 'Login' ) {
       // redirect the user to the login page
       return { name: 'Login' }
     }
-  })
+})
 
 export default router;

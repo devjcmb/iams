@@ -1,9 +1,10 @@
-import axios from 'axios';
+import HttpService from "./HttpService.ts";
 
 export default new class {
-    login(query) {
+    login(data) {
+        let axios = HttpService.getInstance();
         let api_url = process.env.app.api_url + 'auth/login'; 
-        let result = axios.post(api_url, {'query': query});
+        let result = axios.post(api_url, data);
 
         return result;
     };

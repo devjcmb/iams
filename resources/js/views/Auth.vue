@@ -7,4 +7,11 @@
         </div> -->
     </div>
     </header>
+
+    <main class="">
+        <div class="d-flex justify-content-center">
+            <router-view />
+        </div>
+    </main>
+
 </template>
